@@ -15,8 +15,15 @@ type TPHForm = {
     onSubmit: SubmitHandler<FieldValues>;
     children: ReactNode;
     resolver?: any;
+    formTitle?: string;
 } & TFormConfig;
-const PHForm = ({ onSubmit, children, resolver, defaultValues }: TPHForm) => {
+const PHForm = ({
+    onSubmit,
+    children,
+    resolver,
+    defaultValues,
+    formTitle,
+}: TPHForm) => {
     const formConfig: TFormConfig = {};
 
     if (defaultValues) {
@@ -35,7 +42,14 @@ const PHForm = ({ onSubmit, children, resolver, defaultValues }: TPHForm) => {
 
     return (
         <FormProvider {...methods}>
-            <Form layout="vertical" onFinish={methods.handleSubmit(submit)}>
+            <Form
+                layout="vertical"
+                onFinish={methods.handleSubmit(submit)}
+                className="bg-white border-2 border-[#4096ff78] p-8 rounded-xl shadow-lg"
+            >
+                {formTitle && (
+                    <h1 className="text-2xl text-center mb-2">{formTitle}</h1>
+                )}
                 {children}
             </Form>
         </FormProvider>

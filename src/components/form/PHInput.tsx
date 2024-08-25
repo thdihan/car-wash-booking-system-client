@@ -37,22 +37,26 @@ export const PHInput = ({
 export const PHPasswordInput = ({
     name,
     placeholder,
+    label = "Password",
 }: {
     name: string;
     placeholder: string;
+    label?: string;
 }) => {
     return (
         <div>
             <Controller
                 name={name}
                 render={({ field }) => (
-                    <Input.Password
-                        size="large"
-                        {...field}
-                        placeholder={placeholder}
-                        prefix={<LockOutlined />}
-                        id={name}
-                    />
+                    <Form.Item label={label}>
+                        <Input.Password
+                            size="large"
+                            {...field}
+                            placeholder={placeholder}
+                            prefix={<LockOutlined />}
+                            id={name}
+                        />
+                    </Form.Item>
                 )}
             />
         </div>
