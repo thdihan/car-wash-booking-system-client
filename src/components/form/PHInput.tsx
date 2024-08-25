@@ -1,15 +1,18 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Form, Input } from "antd";
+import { ReactNode } from "react";
 import { Controller } from "react-hook-form";
 
 export const PHInput = ({
     name,
     placeholder,
     label = "Text",
+    icon,
 }: {
     name: string;
     placeholder?: string;
     label?: string;
+    icon?: ReactNode;
 }) => {
     return (
         <div>
@@ -21,7 +24,7 @@ export const PHInput = ({
                             size="large"
                             {...field}
                             placeholder={placeholder || label}
-                            prefix={<UserOutlined />}
+                            prefix={icon}
                             id={name}
                         />
                         {error && (
@@ -40,7 +43,7 @@ export const PHPasswordInput = ({
     label = "Password",
 }: {
     name: string;
-    placeholder: string;
+    placeholder?: string;
     label?: string;
 }) => {
     return (
@@ -52,7 +55,7 @@ export const PHPasswordInput = ({
                         <Input.Password
                             size="large"
                             {...field}
-                            placeholder={placeholder}
+                            placeholder={placeholder || label}
                             prefix={<LockOutlined />}
                             id={name}
                         />

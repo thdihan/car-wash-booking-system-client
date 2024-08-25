@@ -9,6 +9,7 @@ import PHForm from "../components/form/PHForm";
 import { PHInput, PHPasswordInput } from "../components/form/PHInput";
 import { FieldValues } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { UserOutlined } from "@ant-design/icons";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -40,18 +41,9 @@ const Login = () => {
         // }
     };
     return (
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-                background: "#e6f4ff",
-            }}
-        >
+        <div className="flex flex-col items-center justify-center h-screen bg-blue-100">
             <PHForm onSubmit={onSubmit} formTitle="Login">
-                <PHInput name="email" label="Email" />
+                <PHInput name="email" label="Email" icon={<UserOutlined />} />
                 <PHPasswordInput name="password" placeholder="Password" />
 
                 <div className="flex flex-col space-y-4">
@@ -64,7 +56,7 @@ const Login = () => {
                             to="/register"
                             className="font-semibold text-[#1677FF]"
                         >
-                            Sign Up
+                            Register
                         </Link>
                     </h4>
                 </div>
