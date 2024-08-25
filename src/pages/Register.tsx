@@ -9,6 +9,8 @@ import {
     UserOutlined,
 } from "@ant-design/icons";
 import { FieldValues } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { userSchema } from "../schemas/userSchema";
 
 const Register = () => {
     const handleRegister = (data: FieldValues) => {
@@ -17,7 +19,11 @@ const Register = () => {
     return (
         <div className="flex flex-col items-center justify-center h-full bg-blue-100">
             <div className="h-full my-8">
-                <PHForm onSubmit={handleRegister} formTitle="Register">
+                <PHForm
+                    onSubmit={handleRegister}
+                    formTitle="Register"
+                    resolver={zodResolver(userSchema)}
+                >
                     <PHInput name="name" label="Name" icon={<UserOutlined />} />
                     <PHInput
                         name="email"
@@ -25,10 +31,6 @@ const Register = () => {
                         icon={<MailOutlined />}
                     />
                     <PHPasswordInput name="password" placeholder="Password" />
-                    <PHPasswordInput
-                        name="confirm-password"
-                        label="Confirm Password"
-                    />
                     <PHInput
                         name="contact"
                         label="Contact"
