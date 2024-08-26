@@ -1,8 +1,10 @@
 import { Button, Col, Modal, Row } from "antd";
-import { PHInput } from "../form/PHInput";
+import { PHInput, PHInputNumber } from "../form/PHInput";
 import PHForm from "../form/PHForm";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ServiceSchema } from "../../schemas/serviceSchema";
 
 type TProps = {
     isModalOpen: boolean;
@@ -13,13 +15,15 @@ const AddServiceModal = ({ isModalOpen, setIsModalOpen }: TProps) => {
         setIsModalOpen(false);
     };
     const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+        const toastId = toast.loading("Creating Service", { duration: 2000 });
         try {
-            const price = parseInt(data.price);
-            const duration = parseInt(data.duration);
-            const newService = { ...data, price, duration, isDeleted: false };
+            const newService = { ...data, isDeleted: false };
             console.log(newService);
         } catch (error) {
-            toast.error("Failed to create service.");
+            toast.error("Failed to create service.", {
+                id: toastId,
+                duration: 2000,
+            });
         }
         console.log("Submitted");
     };
@@ -33,11 +37,14 @@ const AddServiceModal = ({ isModalOpen, setIsModalOpen }: TProps) => {
             footer={null}
         >
             <div className="flex flex-col">
-                <PHForm onSubmit={handleSubmit}>
+                <PHForm
+                    onSubmit={handleSubmit}
+                    resolver={zodResolver(ServiceSchema)}
+                >
                     <PHInput name="name" label="Name" />
                     <PHInput name="description" label="Description" />
-                    <PHInput name="price" label="Price" />
-                    <PHInput name="duration" label="Duration (Min)" />
+                    <PHInputNumber name="price" label="Price" />
+                    <PHInputNumber name="duration" label="Duration (Min)" />
                     <div className="text-right">
                         <Button
                             htmlType="submit"
