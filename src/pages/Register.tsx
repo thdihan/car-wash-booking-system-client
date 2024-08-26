@@ -46,7 +46,7 @@ const Register = () => {
     };
     return (
         <div className="flex flex-col items-center justify-center h-full bg-blue-100">
-            <div className="h-full my-8">
+            <div className="h-full bg-white my-8  border-2 border-[#4096ff78] p-8 rounded-xl shadow-lg">
                 <PHForm
                     onSubmit={handleRegister}
                     formTitle="Register"

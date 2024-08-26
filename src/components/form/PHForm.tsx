@@ -45,7 +45,7 @@ const PHForm = ({
             <Form
                 layout="vertical"
                 onFinish={methods.handleSubmit(submit)}
-                className="bg-white border-2 border-[#4096ff78] p-8 rounded-xl shadow-lg"
+                className="bg-white"
             >
                 {formTitle && (
                     <h1 className="text-2xl text-center mb-2">{formTitle}</h1>

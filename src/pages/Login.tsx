@@ -36,7 +36,7 @@ const Login = () => {
             console.log("User => ", user);
             dispatch(setUser({ user, token: res.token }));
             toast.success("Login successful", { id: toastId, duration: 2000 });
-            navigate("/user/dashboard");
+            navigate(`/${user.role}`);
             // if (user.role === "admin") navigate("/admin");
             // // else navigate(`/${user.role}`);
         } catch (error) {
@@ -47,30 +47,36 @@ const Login = () => {
         }
     };
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-blue-100">
-            <PHForm
-                onSubmit={onSubmit}
-                formTitle="Login"
-                resolver={zodResolver(loginSchema)}
-            >
-                <PHInput name="email" label="Email" icon={<UserOutlined />} />
-                <PHPasswordInput name="password" placeholder="Password" />
+        <div className="flex flex-col items-center justify-center h-screen bg-blue-100 ">
+            <div className=" bg-white my-8  border-2 border-[#4096ff78] p-8 rounded-xl shadow-lg">
+                <PHForm
+                    onSubmit={onSubmit}
+                    formTitle="Login"
+                    resolver={zodResolver(loginSchema)}
+                >
+                    <PHInput
+                        name="email"
+                        label="Email"
+                        icon={<UserOutlined />}
+                    />
+                    <PHPasswordInput name="password" placeholder="Password" />
 
-                <div className="flex flex-col space-y-4">
-                    <Button htmlType="submit" type="primary" size="large">
-                        Login
-                    </Button>
-                    <h4 className="font-medium">
-                        Don't have an account?{" "}
-                        <Link
-                            to="/register"
-                            className="font-semibold text-[#1677FF]"
-                        >
-                            Register
-                        </Link>
-                    </h4>
-                </div>
-            </PHForm>
+                    <div className="flex flex-col space-y-4">
+                        <Button htmlType="submit" type="primary" size="large">
+                            Login
+                        </Button>
+                        <h4 className="font-medium">
+                            Don't have an account?{" "}
+                            <Link
+                                to="/register"
+                                className="font-semibold text-[#1677FF]"
+                            >
+                                Register
+                            </Link>
+                        </h4>
+                    </div>
+                </PHForm>
+            </div>
         </div>
     );
 };
