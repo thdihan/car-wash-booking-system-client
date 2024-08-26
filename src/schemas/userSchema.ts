@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+export const loginSchema = z.object({
+    email: z.string({ required_error: "Please enter your email" }).email(),
+    password: z.string({ required_error: "Please enter your password" }),
+});
+
 export const userSchema = z.object({
     name: z.string({ required_error: "Please enter your name" }),
     email: z.string({ required_error: "Please enter your email" }).email(),
