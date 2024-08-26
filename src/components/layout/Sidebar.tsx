@@ -1,33 +1,27 @@
 import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 import { useAppSelector } from "../../redux/hooks";
 import { AdminPath } from "../../routes/admin.routes";
-import { StudentPath } from "../../routes/student.routes";
+
+import { UserPath } from "../../routes/user.routes";
 import { sideBarItemsGenerator } from "../../utils/sidebarItemsGenerator";
 import { Layout, Menu } from "antd";
 const { Sider } = Layout;
+import _ from "lodash";
 
 const userRole = {
-    SUPERADMIN: "superAdmin",
     ADMIN: "admin",
-    FACULTY: "faculty",
-    STUDENT: "student",
+    USER: "user",
 };
 const Sidebar = () => {
     const role = useAppSelector(selectCurrentUser)?.role;
     let sideBarItems;
 
     switch (role) {
-        case userRole.SUPERADMIN:
-            sideBarItems = sideBarItemsGenerator(AdminPath, userRole.ADMIN);
-            break;
         case userRole.ADMIN:
             sideBarItems = sideBarItemsGenerator(AdminPath, userRole.ADMIN);
             break;
-        case userRole.FACULTY:
-            sideBarItems = sideBarItemsGenerator(AdminPath, userRole.FACULTY);
-            break;
-        case userRole.STUDENT:
-            sideBarItems = sideBarItemsGenerator(StudentPath, userRole.STUDENT);
+        case userRole.USER:
+            sideBarItems = sideBarItemsGenerator(UserPath, userRole.USER);
             break;
         default:
             break;
@@ -53,7 +47,7 @@ const Sidebar = () => {
                     alignItems: "center",
                 }}
             >
-                <h1>Ph University</h1>
+                <h1 className="text-xl">{_.capitalize(role)} Dashboard</h1>
             </div>
             <Menu
                 theme="dark"

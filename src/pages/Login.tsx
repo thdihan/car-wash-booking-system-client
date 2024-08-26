@@ -17,9 +17,9 @@ const Login = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const [login, { error }] = useLoginMutation();
+    const [login] = useLoginMutation();
 
-    console.log("Error => ", error);
+    // console.log("Error => ", error);
 
     const onSubmit = async (data: FieldValues) => {
         console.log("DATA: ", data);
@@ -33,10 +33,12 @@ const Login = () => {
             console.log(res);
 
             const user = verifyToken(res.token) as TUser;
+            console.log("User => ", user);
             dispatch(setUser({ user, token: res.token }));
             toast.success("Login successful", { id: toastId, duration: 2000 });
-            if (user.role === "admin") navigate("/admin");
-            else navigate(`/${user.role}`);
+            navigate("/user/dashboard");
+            // if (user.role === "admin") navigate("/admin");
+            // // else navigate(`/${user.role}`);
         } catch (error) {
             toast.error("Invalid email or password", {
                 id: toastId,
