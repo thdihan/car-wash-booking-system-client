@@ -1,7 +1,10 @@
-import { Table, TableColumnsType } from "antd";
+import { Spin, Table, TableColumnsType } from "antd";
 import { TService } from "../../types/service.type";
-import { useGetServicesQuery } from "../../redux/features/service/service.api";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+
+import AddServiceModal from "./AddServiceModal";
+import { DeleteOutlined } from "@ant-design/icons";
+import { useUpdateServiceMutation } from "../../redux/features/service/service.api";
+import { toast } from "sonner";
 
 type TTableData = Pick<
     TService,
@@ -9,13 +12,13 @@ type TTableData = Pick<
 >;
 
 type TProps = {
-    setIsModalOpen: (value: boolean) => void;
-    setEditServiceId: (value: string) => void;
+    serviceData: TService[] | undefined;
+    isFetching: boolean;
 };
-const ServiceTable = ({ setIsModalOpen, setEditServiceId }: TProps) => {
-    const { data: serviceData, isFetching } = useGetServicesQuery(undefined);
-
-    const tableData = serviceData?.data?.filter(
+const ServiceTable = ({ serviceData, isFetching }: TProps) => {
+    const [updateService, { isLoading: updateLoading }] =
+        useUpdateServiceMutation();
+    const tableData = serviceData?.filter(
         ({ _id, name, description, duration, price, isDeleted }) => {
             if (isDeleted === false) {
                 return {
@@ -29,10 +32,23 @@ const ServiceTable = ({ setIsModalOpen, setEditServiceId }: TProps) => {
         }
     );
 
-    const onEdit = (id: string) => {
-        setEditServiceId(id);
-        setIsModalOpen(true);
-        console.log("Edit", id);
+    const handleDelete = (item: TService) => {
+        const toastId = toast.loading("Deleting Service", { duration: 2000 });
+        try {
+            updateService({
+                id: item._id,
+                payload: { ...item, isDeleted: true },
+            }).unwrap();
+            toast.success("Service deleted successfully.", {
+                id: toastId,
+                duration: 2000,
+            });
+        } catch (error) {
+            toast.error("Failed to delete service.", {
+                id: toastId,
+                duration: 2000,
+            });
+        }
     };
 
     const columns: TableColumnsType<TTableData> = [
@@ -58,17 +74,20 @@ const ServiceTable = ({ setIsModalOpen, setEditServiceId }: TProps) => {
         },
         {
             title: "Action",
-            key: "action",
-            render: (_, record) => (
+            key: "x",
+            render: (item) => (
                 <div className="space-x-2">
-                    <button
-                        className="text-blue-500"
-                        onClick={() => onEdit(record._id)}
-                    >
-                        <EditOutlined className="text-2xl" title="Edit" />
-                    </button>
+                    <AddServiceModal item={item} updateMode={true} />
                     <button className="text-red-500">
-                        <DeleteOutlined className="text-2xl" title="Delete" />
+                        {updateLoading ? (
+                            <Spin size="small" />
+                        ) : (
+                            <DeleteOutlined
+                                className="text-2xl"
+                                title="Delete"
+                                onClick={() => handleDelete(item)}
+                            />
+                        )}
                     </button>
                 </div>
             ),

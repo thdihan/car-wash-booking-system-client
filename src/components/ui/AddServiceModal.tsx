@@ -7,29 +7,27 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ServiceSchema } from "../../schemas/serviceSchema";
 import {
     useCreateServiceMutation,
-    useGetSingleServiceQuery,
+    useUpdateServiceMutation,
 } from "../../redux/features/service/service.api";
 import { TService } from "../../types";
-import LoadingSpinner from "./LoadingSpinner";
+
+import { useState } from "react";
+import { EditOutlined } from "@ant-design/icons";
 
 type TProps = {
-    isModalOpen: boolean;
-    setIsModalOpen: (value: boolean) => void;
-    editServiceId?: string;
+    item: Partial<TService>;
+    updateMode?: boolean;
 };
-const AddServiceModal = ({
-    isModalOpen,
-    setIsModalOpen,
-    editServiceId,
-}: TProps) => {
-    const [addService, { isLoading }] = useCreateServiceMutation();
+const AddServiceModal = ({ item, updateMode = false }: TProps) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [addService, { isLoading: addLoading }] = useCreateServiceMutation();
+    const [updateService, { isLoading: updateLoading }] =
+        useUpdateServiceMutation();
 
-    const { data: serviceData, isFetching } =
-        useGetSingleServiceQuery(editServiceId);
-
-    console.log("data", serviceData);
-
-    const defaultData = serviceData?.data;
+    // console.log("data", serviceData);
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
 
     const closeModal = () => {
         setIsModalOpen(false);
@@ -41,7 +39,12 @@ const AddServiceModal = ({
             console.log(newService);
             let res;
 
-            res = await addService(newService).unwrap();
+            if (updateMode) {
+                res = await updateService({
+                    id: item._id,
+                    payload: newService,
+                }).unwrap();
+            } else res = await addService(newService).unwrap();
             console.log(res);
             toast.success("Service created successfully.", {
                 id: toastId,
@@ -57,22 +60,36 @@ const AddServiceModal = ({
         }
     };
     return (
-        <Modal
-            title="Add Service"
-            open={isModalOpen}
-            onCancel={closeModal}
-            okText="Create Service"
-            cancelText="Cancel"
-            footer={null}
-        >
-            <div className="flex flex-col">
-                {isFetching ? (
-                    <LoadingSpinner />
-                ) : (
+        <>
+            {updateMode ? (
+                <EditOutlined
+                    className="text-2xl"
+                    title="Edit"
+                    onClick={showModal}
+                />
+            ) : (
+                <Button
+                    type="primary"
+                    size="large"
+                    onClick={() => setIsModalOpen((prev) => !prev)}
+                >
+                    Add Service
+                </Button>
+            )}
+
+            <Modal
+                title="Add Service"
+                open={isModalOpen}
+                onCancel={closeModal}
+                okText="Create Service"
+                cancelText="Cancel"
+                footer={null}
+            >
+                <div className="flex flex-col">
                     <PHForm
                         onSubmit={handleSubmit}
                         resolver={zodResolver(ServiceSchema)}
-                        defaultValues={defaultData}
+                        defaultValues={item}
                     >
                         <PHInput name="name" label="Name" />
                         <PHInput name="description" label="Description" />
@@ -84,15 +101,15 @@ const AddServiceModal = ({
                                 type="primary"
                                 size="large"
                                 className="text-right"
-                                loading={isLoading}
+                                loading={addLoading || updateLoading}
                             >
                                 Create Service
                             </Button>
                         </div>
                     </PHForm>
-                )}
-            </div>
-        </Modal>
+                </div>
+            </Modal>
+        </>
     );
 };
 

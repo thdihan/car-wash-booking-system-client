@@ -14,6 +14,7 @@ import { TResponse } from "../../types/global";
 const baseQuery = fetchBaseQuery({
     baseUrl: "http://localhost:5001/api",
     credentials: "include",
+
     prepareHeaders: (headers, { getState }) => {
         const token = (getState() as RootState).auth.token;
 
@@ -66,5 +67,6 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 export const baseApi = createApi({
     reducerPath: "baseApi",
     baseQuery: baseQueryWithRefreshToken,
+    tagTypes: ["services", "service"],
     endpoints: () => ({}),
 });

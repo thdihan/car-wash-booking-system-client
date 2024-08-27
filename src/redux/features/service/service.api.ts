@@ -12,6 +12,7 @@ const serviceApi = baseApi.injectEndpoints({
                     body: data,
                 };
             },
+            invalidatesTags: ["services"],
         }),
 
         getServices: builder.query({
@@ -26,6 +27,7 @@ const serviceApi = baseApi.injectEndpoints({
                     data: response.data,
                 };
             },
+            providesTags: ["services"],
         }),
 
         getSingleService: builder.query({
@@ -46,6 +48,19 @@ const serviceApi = baseApi.injectEndpoints({
                     data: response.data,
                 };
             },
+            providesTags: ["service"],
+        }),
+
+        updateService: builder.mutation({
+            query: ({ id, payload }) => {
+                return {
+                    url: `/services/${id}`,
+                    method: "PUT",
+                    body: payload,
+                };
+            },
+
+            invalidatesTags: ["services", "service"],
         }),
     }),
 });
@@ -54,4 +69,5 @@ export const {
     useCreateServiceMutation,
     useGetServicesQuery,
     useGetSingleServiceQuery,
+    useUpdateServiceMutation,
 } = serviceApi;
