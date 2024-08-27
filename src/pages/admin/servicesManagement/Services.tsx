@@ -1,11 +1,12 @@
 import { Button } from "antd";
 import { useState } from "react";
 import AddServiceModal from "../../../components/ui/AddServiceModal";
+import ServiceTable from "../../../components/ui/ServiceTable";
 
 const Services = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     return (
-        <div>
+        <div className="space-y-4">
             {/* Service Header  */}
             <div className="flex justify-between">
                 <h1 className="text-2xl font-semibold">Available Services</h1>
@@ -19,12 +20,17 @@ const Services = () => {
             </div>
 
             {/* Add Service Modal  */}
-            <AddServiceModal
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-            />
+            <div>
+                <AddServiceModal
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                />
+            </div>
 
             {/* Services Table */}
+            <div>
+                <ServiceTable />
+            </div>
         </div>
     );
 };

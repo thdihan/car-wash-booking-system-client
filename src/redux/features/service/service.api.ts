@@ -1,3 +1,5 @@
+import { TResponseRedux, TService } from "../../../types";
+
 import { baseApi } from "../../api/baseApi";
 
 const serviceApi = baseApi.injectEndpoints({
@@ -17,6 +19,11 @@ const serviceApi = baseApi.injectEndpoints({
                 return {
                     url: "/services",
                     method: "GET",
+                };
+            },
+            transformResponse: (response: TResponseRedux<TService[]>) => {
+                return {
+                    data: response.data,
                 };
             },
         }),
