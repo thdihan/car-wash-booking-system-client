@@ -1,4 +1,4 @@
-import { Button, Col, Modal, Row } from "antd";
+import { Button, Col, Modal, Row, Spin } from "antd";
 import { PHInput, PHInputNumber } from "../form/PHInput";
 import PHForm from "../form/PHForm";
 import { FieldValues, SubmitHandler } from "react-hook-form";
@@ -10,6 +10,7 @@ import {
     useGetSingleServiceQuery,
 } from "../../redux/features/service/service.api";
 import { TService } from "../../types";
+import LoadingSpinner from "./LoadingSpinner";
 
 type TProps = {
     isModalOpen: boolean;
@@ -65,27 +66,31 @@ const AddServiceModal = ({
             footer={null}
         >
             <div className="flex flex-col">
-                <PHForm
-                    onSubmit={handleSubmit}
-                    resolver={zodResolver(ServiceSchema)}
-                    defaultValues={defaultData}
-                >
-                    <PHInput name="name" label="Name" />
-                    <PHInput name="description" label="Description" />
-                    <PHInputNumber name="price" label="Price" />
-                    <PHInputNumber name="duration" label="Duration (Min)" />
-                    <div className="text-right">
-                        <Button
-                            htmlType="submit"
-                            type="primary"
-                            size="large"
-                            className="text-right"
-                            loading={isLoading}
-                        >
-                            Create Service
-                        </Button>
-                    </div>
-                </PHForm>
+                {isFetching ? (
+                    <LoadingSpinner />
+                ) : (
+                    <PHForm
+                        onSubmit={handleSubmit}
+                        resolver={zodResolver(ServiceSchema)}
+                        defaultValues={defaultData}
+                    >
+                        <PHInput name="name" label="Name" />
+                        <PHInput name="description" label="Description" />
+                        <PHInputNumber name="price" label="Price" />
+                        <PHInputNumber name="duration" label="Duration (Min)" />
+                        <div className="text-right">
+                            <Button
+                                htmlType="submit"
+                                type="primary"
+                                size="large"
+                                className="text-right"
+                                loading={isLoading}
+                            >
+                                Create Service
+                            </Button>
+                        </div>
+                    </PHForm>
+                )}
             </div>
         </Modal>
     );
