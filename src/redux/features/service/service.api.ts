@@ -27,7 +27,31 @@ const serviceApi = baseApi.injectEndpoints({
                 };
             },
         }),
+
+        getSingleService: builder.query({
+            query: (id) => {
+                if (id === "") {
+                    return {
+                        url: "/services/123",
+                        method: "GET",
+                    };
+                }
+                return {
+                    url: `/services/${id}`,
+                    method: "GET",
+                };
+            },
+            transformResponse: (response: TResponseRedux<TService>) => {
+                return {
+                    data: response.data,
+                };
+            },
+        }),
     }),
 });
 
-export const { useCreateServiceMutation, useGetServicesQuery } = serviceApi;
+export const {
+    useCreateServiceMutation,
+    useGetServicesQuery,
+    useGetSingleServiceQuery,
+} = serviceApi;

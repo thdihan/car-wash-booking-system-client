@@ -5,14 +5,30 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ServiceSchema } from "../../schemas/serviceSchema";
-import { useCreateServiceMutation } from "../../redux/features/service/service.api";
+import {
+    useCreateServiceMutation,
+    useGetSingleServiceQuery,
+} from "../../redux/features/service/service.api";
+import { TService } from "../../types";
 
 type TProps = {
     isModalOpen: boolean;
     setIsModalOpen: (value: boolean) => void;
+    editServiceId?: string;
 };
-const AddServiceModal = ({ isModalOpen, setIsModalOpen }: TProps) => {
+const AddServiceModal = ({
+    isModalOpen,
+    setIsModalOpen,
+    editServiceId,
+}: TProps) => {
     const [addService, { isLoading }] = useCreateServiceMutation();
+
+    const { data: serviceData, isFetching } =
+        useGetSingleServiceQuery(editServiceId);
+
+    console.log("data", serviceData);
+
+    const defaultData = serviceData?.data;
 
     const closeModal = () => {
         setIsModalOpen(false);
@@ -22,7 +38,9 @@ const AddServiceModal = ({ isModalOpen, setIsModalOpen }: TProps) => {
         try {
             const newService = { ...data, isDeleted: false };
             console.log(newService);
-            const res = await addService(newService).unwrap();
+            let res;
+
+            res = await addService(newService).unwrap();
             console.log(res);
             toast.success("Service created successfully.", {
                 id: toastId,
@@ -50,6 +68,7 @@ const AddServiceModal = ({ isModalOpen, setIsModalOpen }: TProps) => {
                 <PHForm
                     onSubmit={handleSubmit}
                     resolver={zodResolver(ServiceSchema)}
+                    defaultValues={defaultData}
                 >
                     <PHInput name="name" label="Name" />
                     <PHInput name="description" label="Description" />

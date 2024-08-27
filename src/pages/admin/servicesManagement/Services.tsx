@@ -5,6 +5,7 @@ import ServiceTable from "../../../components/ui/ServiceTable";
 
 const Services = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editServiceId, setEditServiceId] = useState<string>("");
     return (
         <div className="space-y-4">
             {/* Service Header  */}
@@ -24,12 +25,16 @@ const Services = () => {
                 <AddServiceModal
                     isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}
+                    editServiceId={editServiceId}
                 />
             </div>
 
             {/* Services Table */}
             <div>
-                <ServiceTable />
+                <ServiceTable
+                    setIsModalOpen={setIsModalOpen}
+                    setEditServiceId={setEditServiceId}
+                />
             </div>
         </div>
     );

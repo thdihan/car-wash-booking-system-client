@@ -5,16 +5,21 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 type TTableData = Pick<
     TService,
-    "name" | "description" | "duration" | "price" | "isDeleted"
+    "_id" | "name" | "description" | "duration" | "price" | "isDeleted"
 >;
-const ServiceTable = () => {
+
+type TProps = {
+    setIsModalOpen: (value: boolean) => void;
+    setEditServiceId: (value: string) => void;
+};
+const ServiceTable = ({ setIsModalOpen, setEditServiceId }: TProps) => {
     const { data: serviceData, isFetching } = useGetServicesQuery(undefined);
 
     const tableData = serviceData?.data?.filter(
         ({ _id, name, description, duration, price, isDeleted }) => {
             if (isDeleted === false) {
                 return {
-                    key: _id,
+                    _id,
                     name,
                     description,
                     duration,
@@ -23,6 +28,12 @@ const ServiceTable = () => {
             }
         }
     );
+
+    const onEdit = (id: string) => {
+        setEditServiceId(id);
+        setIsModalOpen(true);
+        console.log("Edit", id);
+    };
 
     const columns: TableColumnsType<TTableData> = [
         {
@@ -48,9 +59,12 @@ const ServiceTable = () => {
         {
             title: "Action",
             key: "action",
-            render: () => (
+            render: (_, record) => (
                 <div className="space-x-2">
-                    <button className="text-blue-500">
+                    <button
+                        className="text-blue-500"
+                        onClick={() => onEdit(record._id)}
+                    >
                         <EditOutlined className="text-2xl" title="Edit" />
                     </button>
                     <button className="text-red-500">
@@ -61,14 +75,12 @@ const ServiceTable = () => {
         },
     ];
 
-    const onChange = () => {};
     return (
         <div>
             <Table
                 loading={isFetching}
                 columns={columns}
                 dataSource={tableData}
-                onChange={onChange}
             />
         </div>
     );
