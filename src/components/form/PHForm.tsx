@@ -9,6 +9,7 @@ import {
 
 type TFormConfig = {
     defaultValues?: Record<string, any>;
+    initialValues?: Record<string, any>;
     resolver?: any;
 };
 type TPHForm = {
@@ -22,12 +23,17 @@ const PHForm = ({
     children,
     resolver,
     defaultValues,
+    initialValues,
     formTitle,
 }: TPHForm) => {
     const formConfig: TFormConfig = {};
 
     if (defaultValues) {
         formConfig["defaultValues"] = defaultValues;
+    }
+
+    if (initialValues) {
+        formConfig["initialValues"] = initialValues;
     }
     if (resolver) {
         // console.log("Setting Resolver");
@@ -46,6 +52,7 @@ const PHForm = ({
                 layout="vertical"
                 onFinish={methods.handleSubmit(submit)}
                 className="bg-white"
+                initialValues={initialValues}
             >
                 {formTitle && (
                     <h1 className="text-2xl text-center mb-2">{formTitle}</h1>

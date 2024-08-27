@@ -21,7 +21,7 @@ export const PHInput = ({
             <Controller
                 name={name}
                 render={({ field, fieldState: { error } }) => (
-                    <Form.Item label={label}>
+                    <Form.Item label={label} name={name}>
                         <Input
                             size="large"
                             {...field}
@@ -54,7 +54,7 @@ export const PHPasswordInput = ({
             <Controller
                 name={name}
                 render={({ field }) => (
-                    <Form.Item label={label}>
+                    <Form.Item label={label} name={name}>
                         <Input.Password
                             size="large"
                             {...field}
@@ -87,7 +87,7 @@ export const PHInputNumber = ({
             <Controller
                 name={name}
                 render={({ field, fieldState: { error } }) => (
-                    <Form.Item label={label}>
+                    <Form.Item label={label} name={name}>
                         <InputNumber
                             size="large"
                             {...field}

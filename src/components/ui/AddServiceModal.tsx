@@ -11,7 +11,7 @@ import {
 } from "../../redux/features/service/service.api";
 import { TService } from "../../types";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
 
 type TProps = {
@@ -23,6 +23,14 @@ const AddServiceModal = ({ item, updateMode = false }: TProps) => {
     const [addService, { isLoading: addLoading }] = useCreateServiceMutation();
     const [updateService, { isLoading: updateLoading }] =
         useUpdateServiceMutation();
+
+    console.log("item", item);
+
+    const [defaultValues, setDefaultValues] = useState<Partial<TService>>({});
+
+    useEffect(() => {
+        setDefaultValues(item);
+    }, [item]);
 
     // console.log("data", serviceData);
     const showModal = () => {
@@ -89,7 +97,8 @@ const AddServiceModal = ({ item, updateMode = false }: TProps) => {
                     <PHForm
                         onSubmit={handleSubmit}
                         resolver={zodResolver(ServiceSchema)}
-                        defaultValues={item}
+                        initialValues={defaultValues}
+                        defaultValues={defaultValues}
                     >
                         <PHInput name="name" label="Name" />
                         <PHInput name="description" label="Description" />
