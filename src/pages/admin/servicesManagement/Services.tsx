@@ -11,6 +11,7 @@ const Services = () => {
                 <h1 className="text-2xl font-semibold">Available Services</h1>
                 <Button
                     type="primary"
+                    size="large"
                     onClick={() => setIsModalOpen((prev) => !prev)}
                 >
                     Add Service

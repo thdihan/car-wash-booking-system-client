@@ -11,7 +11,16 @@ const serviceApi = baseApi.injectEndpoints({
                 };
             },
         }),
+
+        getServices: builder.query({
+            query: () => {
+                return {
+                    url: "/services",
+                    method: "GET",
+                };
+            },
+        }),
     }),
 });
 
-export const { useCreateServiceMutation } = serviceApi;
+export const { useCreateServiceMutation, useGetServicesQuery } = serviceApi;

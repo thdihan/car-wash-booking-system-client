@@ -5,27 +5,37 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ServiceSchema } from "../../schemas/serviceSchema";
+import { useCreateServiceMutation } from "../../redux/features/service/service.api";
 
 type TProps = {
     isModalOpen: boolean;
     setIsModalOpen: (value: boolean) => void;
 };
 const AddServiceModal = ({ isModalOpen, setIsModalOpen }: TProps) => {
+    const [addService, { isLoading }] = useCreateServiceMutation();
+
     const closeModal = () => {
         setIsModalOpen(false);
     };
-    const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+    const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
         const toastId = toast.loading("Creating Service", { duration: 2000 });
         try {
             const newService = { ...data, isDeleted: false };
             console.log(newService);
+            const res = await addService(newService).unwrap();
+            console.log(res);
+            toast.success("Service created successfully.", {
+                id: toastId,
+                duration: 2000,
+            });
+
+            setIsModalOpen(false);
         } catch (error) {
             toast.error("Failed to create service.", {
                 id: toastId,
                 duration: 2000,
             });
         }
-        console.log("Submitted");
     };
     return (
         <Modal
@@ -51,6 +61,7 @@ const AddServiceModal = ({ isModalOpen, setIsModalOpen }: TProps) => {
                             type="primary"
                             size="large"
                             className="text-right"
+                            loading={isLoading}
                         >
                             Create Service
                         </Button>
