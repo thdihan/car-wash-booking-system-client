@@ -23,6 +23,7 @@ const PHSelect = ({
                         style={{ width: "100%" }}
                         options={options}
                         disabled={disabled}
+                        placeholder={`Select ${label}`}
                     />
                     {error && (
                         <small style={{ color: "red" }}>{error.message}</small>

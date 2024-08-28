@@ -14,7 +14,7 @@ export const AdminPath = [
     },
     {
         name: "Slot Management",
-        path: "services",
+        path: "slots",
         element: <Slots />,
     },
 ];

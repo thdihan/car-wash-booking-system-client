@@ -1,5 +1,6 @@
 import AddServiceModal from "../../../components/ui/serviceComponents/AddServiceModal";
 import ServiceTable from "../../../components/ui/serviceComponents/ServiceTable";
+import AddSlotModal from "../../../components/ui/slotComponents/AddSlotModal";
 import { useGetServicesQuery } from "../../../redux/features/admin/service.api";
 
 const item = {
@@ -16,7 +17,7 @@ const Slots = () => {
             {/* Service Header  */}
             <div className="flex justify-between">
                 <h1 className="text-2xl font-semibold">Available Services</h1>
-                <AddServiceModal updateMode={false} item={item} />
+                <AddSlotModal />
             </div>
 
             {/* Services Table */}
