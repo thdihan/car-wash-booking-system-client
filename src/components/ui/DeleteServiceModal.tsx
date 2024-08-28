@@ -3,15 +3,11 @@ import { Modal } from "antd";
 import { useState } from "react";
 import { TService } from "../../types";
 import { toast } from "sonner";
-import { useUpdateServiceMutation } from "../../redux/features/service/service.api";
+import { useUpdateServiceMutation } from "../../redux/features/admin/service.api";
 
 const DeleteServiceModal = ({ item }: { item: TService }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [updateService] = useUpdateServiceMutation();
-
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
 
     const handleDelete = (item: TService) => {
         const toastId = toast.loading("Deleting Service", { duration: 2000 });

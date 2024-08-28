@@ -1,10 +1,7 @@
-import { Spin, Table, TableColumnsType } from "antd";
+import { Table, TableColumnsType } from "antd";
 import { TService } from "../../types/service.type";
 
 import AddServiceModal from "./AddServiceModal";
-import { DeleteOutlined } from "@ant-design/icons";
-import { useUpdateServiceMutation } from "../../redux/features/service/service.api";
-import { toast } from "sonner";
 import DeleteServiceModal from "./DeleteServiceModal";
 
 type TTableData = Pick<
@@ -17,8 +14,6 @@ type TProps = {
     isFetching: boolean;
 };
 const ServiceTable = ({ serviceData, isFetching }: TProps) => {
-    const [updateService, { isLoading: updateLoading }] =
-        useUpdateServiceMutation();
     const tableData = serviceData?.filter(
         ({ _id, name, description, duration, price, isDeleted }) => {
             if (isDeleted === false) {

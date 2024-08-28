@@ -1,6 +1,6 @@
 import AddServiceModal from "../../../components/ui/AddServiceModal";
 import ServiceTable from "../../../components/ui/ServiceTable";
-import { useGetServicesQuery } from "../../../redux/features/service/service.api";
+import { useGetServicesQuery } from "../../../redux/features/admin/service.api";
 
 const item = {
     _id: "",

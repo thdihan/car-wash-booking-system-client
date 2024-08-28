@@ -1,4 +1,4 @@
-import { Button, Col, Modal, Row, Spin } from "antd";
+import { Button, Modal } from "antd";
 import { PHInput, PHInputNumber } from "../form/PHInput";
 import PHForm from "../form/PHForm";
 import { FieldValues, SubmitHandler } from "react-hook-form";
@@ -8,7 +8,7 @@ import { ServiceSchema } from "../../schemas/serviceSchema";
 import {
     useCreateServiceMutation,
     useUpdateServiceMutation,
-} from "../../redux/features/service/service.api";
+} from "../../redux/features/admin/service.api";
 import { TService } from "../../types";
 
 import { useEffect, useState } from "react";
