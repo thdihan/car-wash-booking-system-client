@@ -5,6 +5,7 @@ import AddServiceModal from "./AddServiceModal";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useUpdateServiceMutation } from "../../redux/features/service/service.api";
 import { toast } from "sonner";
+import DeleteServiceModal from "./DeleteServiceModal";
 
 type TTableData = Pick<
     TService,
@@ -31,25 +32,6 @@ const ServiceTable = ({ serviceData, isFetching }: TProps) => {
             }
         }
     );
-
-    const handleDelete = (item: TService) => {
-        const toastId = toast.loading("Deleting Service", { duration: 2000 });
-        try {
-            updateService({
-                id: item._id,
-                payload: { ...item, isDeleted: true },
-            }).unwrap();
-            toast.success("Service deleted successfully.", {
-                id: toastId,
-                duration: 2000,
-            });
-        } catch (error) {
-            toast.error("Failed to delete service.", {
-                id: toastId,
-                duration: 2000,
-            });
-        }
-    };
 
     const columns: TableColumnsType<TTableData> = [
         {
@@ -78,17 +60,7 @@ const ServiceTable = ({ serviceData, isFetching }: TProps) => {
             render: (item) => (
                 <div className="space-x-2">
                     <AddServiceModal item={item} updateMode={true} />
-                    <button className="text-red-500">
-                        {updateLoading ? (
-                            <Spin size="small" />
-                        ) : (
-                            <DeleteOutlined
-                                className="text-2xl"
-                                title="Delete"
-                                onClick={() => handleDelete(item)}
-                            />
-                        )}
-                    </button>
+                    <DeleteServiceModal item={item} />
                 </div>
             ),
         },
