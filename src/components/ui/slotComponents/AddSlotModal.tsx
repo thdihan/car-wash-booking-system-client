@@ -14,16 +14,13 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { useCreateSlotMutation } from "../../../redux/features/admin/slot.api";
 import { formatDate, formatTime } from "../../../utils/formatDateAndTime";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SlotSchema } from "../../../schemas/slotSchema";
 
 const AddSlotModal = ({ updateMode = false }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [defaultValues, setDefaultValues] = useState<Partial<TService>>({});
 
-    const { data: serviceData, isFetching: serviceFetching } =
-        useGetServicesQuery(undefined);
+    const { data: serviceData } = useGetServicesQuery(undefined);
 
     const [addSlot] = useCreateSlotMutation();
 
@@ -38,9 +35,6 @@ const AddSlotModal = ({ updateMode = false }) => {
             };
         });
 
-    console.log("serviceOptions", serviceOptions);
-
-    // console.log("data", serviceData);
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -50,8 +44,6 @@ const AddSlotModal = ({ updateMode = false }) => {
     };
 
     const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
-        console.log("Slot Data : ", data);
-
         const toastId = toast.loading("Creating Slot", { duration: 2000 });
         try {
             const date = formatDate(data.date);

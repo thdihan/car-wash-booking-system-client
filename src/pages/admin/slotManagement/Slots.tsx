@@ -1,16 +1,11 @@
-import AddServiceModal from "../../../components/ui/serviceComponents/AddServiceModal";
-import ServiceTable from "../../../components/ui/serviceComponents/ServiceTable";
 import AddSlotModal from "../../../components/ui/slotComponents/AddSlotModal";
-import { useGetServicesQuery } from "../../../redux/features/admin/service.api";
+import SlotTable from "../../../components/ui/slotComponents/SlotTable";
 
-const item = {
-    _id: "",
-    name: "",
-    description: "",
-    isDeleted: false,
-};
+import { useGetSlotsQuery } from "../../../redux/features/admin/slot.api";
+
 const Slots = () => {
-    const { data: serviceData, isFetching } = useGetServicesQuery(undefined);
+    const { data: slotData } = useGetSlotsQuery(undefined);
+    console.log("SLOT DATA ", slotData);
 
     return (
         <div className="space-y-4">
@@ -22,10 +17,7 @@ const Slots = () => {
 
             {/* Services Table */}
             <div>
-                <ServiceTable
-                    serviceData={serviceData?.data}
-                    isFetching={isFetching}
-                />
+                <SlotTable slotData={slotData?.data} isFetching={false} />
             </div>
         </div>
     );
