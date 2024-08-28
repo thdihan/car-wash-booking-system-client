@@ -1,9 +1,10 @@
 import { DeleteOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
 import { useState } from "react";
-import { TService } from "../../types";
+
 import { toast } from "sonner";
-import { useUpdateServiceMutation } from "../../redux/features/admin/service.api";
+import { TService } from "../../../types";
+import { useUpdateServiceMutation } from "../../../redux/features/admin/service.api";
 
 const DeleteServiceModal = ({ item }: { item: TService }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);

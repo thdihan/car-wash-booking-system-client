@@ -1,8 +1,8 @@
 import { Table, TableColumnsType } from "antd";
-import { TService } from "../../types/service.type";
 
 import AddServiceModal from "./AddServiceModal";
 import DeleteServiceModal from "./DeleteServiceModal";
+import { TService } from "../../../types";
 
 type TTableData = Pick<
     TService,

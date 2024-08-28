@@ -1,18 +1,19 @@
 import { Button, Modal } from "antd";
-import { PHInput, PHInputNumber } from "../form/PHInput";
-import PHForm from "../form/PHForm";
+
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ServiceSchema } from "../../schemas/serviceSchema";
-import {
-    useCreateServiceMutation,
-    useUpdateServiceMutation,
-} from "../../redux/features/admin/service.api";
-import { TService } from "../../types";
 
 import { useEffect, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
+import { TService } from "../../../types";
+import {
+    useCreateServiceMutation,
+    useUpdateServiceMutation,
+} from "../../../redux/features/admin/service.api";
+import PHForm from "../../form/PHForm";
+import { ServiceSchema } from "../../../schemas/serviceSchema";
+import { PHInput, PHInputNumber } from "../../form/PHInput";
 
 type TProps = {
     item: Partial<TService>;

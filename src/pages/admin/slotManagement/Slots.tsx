@@ -8,7 +8,7 @@ const item = {
     description: "",
     isDeleted: false,
 };
-const Services = () => {
+const Slots = () => {
     const { data: serviceData, isFetching } = useGetServicesQuery(undefined);
 
     return (
@@ -30,4 +30,4 @@ const Services = () => {
     );
 };
 
-export default Services;
+export default Slots;
