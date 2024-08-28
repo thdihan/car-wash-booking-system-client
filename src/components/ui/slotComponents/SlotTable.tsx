@@ -1,13 +1,13 @@
 import { Select, Table, TableColumnsType, Tag } from "antd";
 
 import { TSlot } from "../../../types/slot.type";
-import PHForm from "../../form/PHForm";
-import PHSelect from "../../form/PHSelect";
+
 import { useUpdateSlotMutation } from "../../../redux/features/admin/slot.api";
+import { TService } from "../../../types";
 
 type TTableData = {
-    _id: string;
-    service: string;
+    key: string;
+    service: TService;
     date: string;
     startTime: string;
     endTime: string;
@@ -25,8 +25,8 @@ const SlotTable = ({ slotData, isFetching }: TProps) => {
     const tableData = slotData?.map(
         ({ _id, service, date, startTime, endTime, isBooked }) => {
             return {
-                _id,
-                service: service?.name,
+                key: _id,
+                service: service,
                 date,
                 startTime,
                 endTime,
@@ -34,8 +34,6 @@ const SlotTable = ({ slotData, isFetching }: TProps) => {
             };
         }
     );
-
-    console.log("SLOT tableData", tableData);
 
     const statusOption = [
         {
@@ -47,11 +45,11 @@ const SlotTable = ({ slotData, isFetching }: TProps) => {
             value: "cancelled",
         },
     ];
-    const handleSubmit = async (item: TSlot) => {
-        console.log(item);
+    const handleSubmit = async (item: TTableData) => {
+        // console.log(item);
         try {
             const updatedSlot = {
-                service: item.service,
+                service: item.service?._id,
                 date: item.date,
                 startTime: item.startTime,
                 endTime: item.endTime,
@@ -59,11 +57,11 @@ const SlotTable = ({ slotData, isFetching }: TProps) => {
             };
 
             const res = await updateSlot({
-                id: item._id,
+                id: item.key,
                 data: updatedSlot,
             }).unwrap();
 
-            console.log(res);
+            // console.log(res);
         } catch (error) {
             console.log(error);
         }
@@ -73,7 +71,7 @@ const SlotTable = ({ slotData, isFetching }: TProps) => {
         {
             title: "Service",
             key: "service",
-            dataIndex: "service",
+            render: (item) => item?.service?.name,
         },
         {
             title: "Date",

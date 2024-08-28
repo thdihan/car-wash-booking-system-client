@@ -5,7 +5,6 @@ import { useGetSlotsQuery } from "../../../redux/features/admin/slot.api";
 
 const Slots = () => {
     const { data: slotData } = useGetSlotsQuery(undefined);
-    console.log("SLOT DATA ", slotData);
 
     return (
         <div className="space-y-4">
