@@ -3,6 +3,7 @@ import { Table, TableColumnsType } from "antd";
 import AddServiceModal from "./AddServiceModal";
 import DeleteServiceModal from "./DeleteServiceModal";
 import { TService } from "../../../types";
+import UpdateServiceModal from "./UpdateServiceModal";
 
 type TTableData = Pick<
     TService,
@@ -54,7 +55,7 @@ const ServiceTable = ({ serviceData, isFetching }: TProps) => {
             key: "x",
             render: (item) => (
                 <div className="space-x-2">
-                    <AddServiceModal item={item} updateMode={true} />
+                    <UpdateServiceModal item={item} />
                     <DeleteServiceModal item={item} />
                 </div>
             ),

@@ -4,16 +4,40 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useState } from "react";
-
-import { useCreateServiceMutation } from "../../../redux/features/admin/service.api";
+import { useEffect, useState } from "react";
+import { EditOutlined } from "@ant-design/icons";
+import { TService } from "../../../types";
+import { useUpdateServiceMutation } from "../../../redux/features/admin/service.api";
 import PHForm from "../../form/PHForm";
 import { ServiceSchema } from "../../../schemas/serviceSchema";
-import { PHInput, PHInputNumber } from "../../form/PHInput";
+import {
+    PHInput,
+    PHInputNumber,
+    PHInputNumberUpdate,
+    PHInputUpdate,
+} from "../../form/PHInput";
 
-const AddServiceModal = () => {
+type TProps = {
+    item: Partial<TService>;
+};
+const UpdateServiceModal = ({ item }: TProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [addService, { isLoading: addLoading }] = useCreateServiceMutation();
+
+    const [updateService, { isLoading: updateLoading }] =
+        useUpdateServiceMutation();
+
+    console.log("item", item);
+
+    const [defaultValues, setDefaultValues] = useState<Partial<TService>>({});
+
+    useEffect(() => {
+        setDefaultValues(item);
+    }, [item]);
+
+    // console.log("data", serviceData);
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
 
     const closeModal = () => {
         setIsModalOpen(false);
@@ -23,8 +47,13 @@ const AddServiceModal = () => {
         try {
             const newService = { ...data, isDeleted: false };
             console.log(newService);
+            let res;
 
-            const res = await addService(newService).unwrap();
+            res = await updateService({
+                id: item._id,
+                payload: newService,
+            }).unwrap();
+
             console.log(res);
             toast.success("Service created successfully.", {
                 id: toastId,
@@ -32,6 +61,7 @@ const AddServiceModal = () => {
             });
 
             setIsModalOpen(false);
+            setDefaultValues({});
         } catch (error) {
             toast.error("Failed to create service.", {
                 id: toastId,
@@ -41,13 +71,11 @@ const AddServiceModal = () => {
     };
     return (
         <>
-            <Button
-                type="primary"
-                size="large"
-                onClick={() => setIsModalOpen((prev) => !prev)}
-            >
-                Add Service
-            </Button>
+            <EditOutlined
+                className="text-2xl"
+                title="Edit"
+                onClick={showModal}
+            />
 
             <Modal
                 title="Add Service"
@@ -61,18 +89,23 @@ const AddServiceModal = () => {
                     <PHForm
                         onSubmit={handleSubmit}
                         resolver={zodResolver(ServiceSchema)}
+                        initialValues={defaultValues}
+                        defaultValues={defaultValues}
                     >
-                        <PHInput name="name" label="Name" />
-                        <PHInput name="description" label="Description" />
-                        <PHInputNumber name="price" label="Price" />
-                        <PHInputNumber name="duration" label="Duration (Min)" />
+                        <PHInputUpdate name="name" label="Name" />
+                        <PHInputUpdate name="description" label="Description" />
+                        <PHInputNumberUpdate name="price" label="Price" />
+                        <PHInputNumberUpdate
+                            name="duration"
+                            label="Duration (Min)"
+                        />
                         <div className="text-right">
                             <Button
                                 htmlType="submit"
                                 type="primary"
                                 size="large"
                                 className="text-right"
-                                loading={addLoading}
+                                loading={updateLoading}
                             >
                                 Create Service
                             </Button>
@@ -84,4 +117,4 @@ const AddServiceModal = () => {
     );
 };
 
-export default AddServiceModal;
+export default UpdateServiceModal;
