@@ -3,16 +3,26 @@ import { selectCurrentUser } from "../redux/features/auth/authSlice";
 import { useGerPersonalDataQuery } from "../redux/features/user/userManagement.api";
 import { useAppSelector } from "../redux/hooks";
 import _ from "lodash";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+    const navigate = useNavigate();
     const user = useAppSelector(selectCurrentUser);
     const { data: personalData } = useGerPersonalDataQuery(user?.id ?? "");
     console.log(personalData);
+
+    const handleUpdateProfile = () => {
+        navigate("/admin/update-profile");
+    };
     return (
         <div>
             <div className="flex justify-between">
                 <h2 className="text-xl font-medium">Personal Profile</h2>
-                <Button size="large" type="primary">
+                <Button
+                    size="large"
+                    type="primary"
+                    onClick={handleUpdateProfile}
+                >
                     Update Profile
                 </Button>
             </div>

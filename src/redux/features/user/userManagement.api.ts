@@ -10,8 +10,22 @@ const userManagementApi = baseApi.injectEndpoints({
                     params: { userId },
                 };
             },
+
+            providesTags: ["profile"],
+        }),
+
+        updateProfile: builder.mutation({
+            query: (data: any) => {
+                return {
+                    url: "/user",
+                    method: "PUT",
+                    body: data,
+                };
+            },
+            invalidatesTags: ["profile"],
         }),
     }),
 });
 
-export const { useGerPersonalDataQuery } = userManagementApi;
+export const { useGerPersonalDataQuery, useUpdateProfileMutation } =
+    userManagementApi;
