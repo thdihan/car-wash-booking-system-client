@@ -1,13 +1,12 @@
-import { Children } from "react";
-import AdminDashboard from "../pages/admin/AdminDashboard";
 import Profile from "../pages/Profile";
 import CreateBooking from "../pages/user/CreateBooking";
+import UpcomingSlot from "../pages/user/UpcomingSlot";
 
 export const UserPath = [
     {
         name: "Dashboard",
         path: "dashboard",
-        element: <AdminDashboard />,
+        element: <UpcomingSlot />,
     },
 
     {
@@ -32,7 +31,7 @@ export const UserPath = [
             {
                 name: "Upcoming Bookings",
                 path: "dashboard",
-                element: <CreateBooking />,
+                element: <UpcomingSlot />,
             },
         ],
     },
