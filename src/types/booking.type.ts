@@ -6,7 +6,7 @@ export type TBooking = {
     _id: string;
     customer: TCustomer;
     serviceId: TService;
-    slotId: TSlot;
+    slotId: TSlot[];
     vehicleType: string;
     vehicleBrand: string;
     vehicleModel: string;

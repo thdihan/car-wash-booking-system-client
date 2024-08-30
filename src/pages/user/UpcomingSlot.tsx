@@ -3,10 +3,41 @@ import { useGetMyBookingsQuery } from "../../redux/features/user/booking.api";
 import { TBooking } from "../../types/booking.type";
 import Countdown from "react-countdown";
 import _ from "lodash";
+import { useEffect, useState } from "react";
+import { TSlot } from "../../types/slot.type";
 
 const UpcomingSlot = () => {
     const { data: bookingData, isFetching } = useGetMyBookingsQuery(undefined);
     console.log("bookingData", bookingData);
+
+    const [upcomingBooking, setUpcomingBooking] = useState<TBooking[]>();
+
+    useEffect(() => {
+        if (bookingData?.data.length > 0) {
+            const tempBooking = bookingData?.data?.reduce(
+                (acc: TBooking[], item: TBooking) => {
+                    const slotId = item.slotId.reduce((acc: TSlot[], slot) => {
+                        if (
+                            new Date(`${slot.date}T${slot.startTime}`) >
+                            new Date(Date.now())
+                        )
+                            acc.push(slot);
+                        return acc;
+                    }, []);
+
+                    if (slotId.length > 0) {
+                        const booking = { ...item, slotId };
+                        acc.push(booking);
+                    }
+                    return acc;
+                },
+                []
+            );
+
+            setUpcomingBooking(tempBooking);
+            console.log("Modified Booking: ", tempBooking);
+        }
+    }, [bookingData?.data]);
     return (
         <div>
             <div>
@@ -15,7 +46,7 @@ const UpcomingSlot = () => {
 
             <div className="my-8">
                 <Row gutter={16}>
-                    {bookingData?.data?.map((booking: TBooking) => (
+                    {upcomingBooking?.map((booking: TBooking) => (
                         <Col
                             span={24}
                             md={{ span: "12" }}
@@ -30,7 +61,7 @@ const UpcomingSlot = () => {
                                     <Countdown
                                         date={
                                             new Date(
-                                                `${booking?.slotId.date}T${booking?.slotId.startTime}`
+                                                `${booking?.slotId[0].date}T${booking?.slotId[0].startTime}`
                                             )
                                         }
                                         className="text-xl "
@@ -42,9 +73,13 @@ const UpcomingSlot = () => {
                                             Slots:
                                         </td>
                                         <td className="font-semibold border-2 p-2">
-                                            {booking?.slotId.date} {": "}
-                                            {booking?.slotId.startTime} -{" "}
-                                            {booking?.slotId.endTime}
+                                            {booking?.slotId?.map((slot) => (
+                                                <p>
+                                                    {slot.date} {": "}
+                                                    {slot.startTime} -{" "}
+                                                    {slot.endTime}
+                                                </p>
+                                            ))}
                                         </td>
                                     </tr>
                                     <tr>

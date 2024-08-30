@@ -9,6 +9,7 @@ import { Button } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { useCreateBookingMutation } from "../../redux/features/user/booking.api";
+import { PHCheckbox } from "../../components/form/PHCheckbox";
 
 const CreateBooking = () => {
     const [serviceId, setServiceId] = useState<string>("");
@@ -38,13 +39,13 @@ const CreateBooking = () => {
     }));
 
     const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
+        // console.log("SLOT DATA", data);
         const toastId = toast.loading("Booking Slot...", { duration: 2000 });
         try {
             const newBooking = { ...data, serviceId };
             console.log("New Booking : ", newBooking);
             const res = await createBooking(newBooking).unwrap();
             console.log("Booking Response : ", res);
-
             toast.success("Slot Booked Successfully", { id: toastId });
         } catch (error) {
             console.log(error);
@@ -64,7 +65,9 @@ const CreateBooking = () => {
                         setServiceId(value);
                     }}
                 />
-                <PHSelect options={slotOptions} name="slotId" label="Slot" />
+                {/* <PHSelect options={slotOptions} name="slotId" label="Slot" /> */}
+                <PHCheckbox options={slotOptions} name="slotId" label="Slot" />
+
                 <PHSelect
                     name="vehicleType"
                     label="Vehicle Type"
