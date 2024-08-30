@@ -8,7 +8,6 @@ import { TSlot } from "../../types/slot.type";
 
 const UpcomingSlot = () => {
     const { data: bookingData, isFetching } = useGetMyBookingsQuery(undefined);
-    console.log("bookingData", bookingData);
 
     const [upcomingBooking, setUpcomingBooking] = useState<TBooking[]>();
 

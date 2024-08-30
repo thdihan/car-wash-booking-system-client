@@ -1,6 +1,5 @@
 import { Table, TableColumnsType } from "antd";
 
-import AddServiceModal from "./AddServiceModal";
 import DeleteServiceModal from "./DeleteServiceModal";
 import { TService } from "../../../types";
 import UpdateServiceModal from "./UpdateServiceModal";

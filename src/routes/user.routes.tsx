@@ -1,5 +1,6 @@
 import Profile from "../pages/Profile";
 import CreateBooking from "../pages/user/CreateBooking";
+import PastBooking from "../pages/user/PastBooking";
 import UpcomingSlot from "../pages/user/UpcomingSlot";
 
 export const UserPath = [
@@ -25,8 +26,8 @@ export const UserPath = [
             },
             {
                 name: "Past Bookings",
-                path: "create-booking",
-                element: <CreateBooking />,
+                path: "past-booking",
+                element: <PastBooking />,
             },
             {
                 name: "Upcoming Bookings",

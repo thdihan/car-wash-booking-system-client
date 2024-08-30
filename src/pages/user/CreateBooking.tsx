@@ -29,7 +29,7 @@ const CreateBooking = () => {
                 slot?.isBooked === "available"
         )
         .map((slot) => ({
-            label: `${slot.startTime} - ${slot.endTime}`,
+            label: `${slot.date} : (${slot.startTime} - ${slot.endTime})`,
             value: slot?._id,
         }));
 
@@ -67,6 +67,11 @@ const CreateBooking = () => {
                 />
                 {/* <PHSelect options={slotOptions} name="slotId" label="Slot" /> */}
                 <PHCheckbox options={slotOptions} name="slotId" label="Slot" />
+                {slotOptions?.length === 0 && (
+                    <p className="text-center text-md text-gray-500">
+                        Please select a service / No available slots
+                    </p>
+                )}
 
                 <PHSelect
                     name="vehicleType"
