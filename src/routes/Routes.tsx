@@ -5,19 +5,40 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import { routeGenerator } from "../utils/routesGenerator";
 import { UserPath } from "./user.routes";
+import ProtectedRoute from "../components/layout/ProtectedRoute";
+import MainLayout from "../components/layout/MainLayout";
+import HomeLayout from "../components/layout/HomeLayout";
+import { PublicPath } from "./public.routes";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App />,
+        element: (
+            <App>
+                <HomeLayout />
+            </App>
+        ),
+        children: routeGenerator(PublicPath),
     },
     {
         path: "/admin",
-        element: <App />,
+        element: (
+            <App>
+                <ProtectedRoute>
+                    <MainLayout />
+                </ProtectedRoute>
+            </App>
+        ),
         children: routeGenerator(AdminPath),
     },
     {
         path: "/user",
-        element: <App />,
+        element: (
+            <App>
+                <ProtectedRoute>
+                    <MainLayout />
+                </ProtectedRoute>
+            </App>
+        ),
         children: routeGenerator(UserPath),
     },
     {

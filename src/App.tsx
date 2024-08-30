@@ -1,14 +1,5 @@
-import MainLayout from "./components/layout/MainLayout";
-import ProtectedRoute from "./components/layout/ProtectedRoute";
-
-function App() {
-    return (
-        <>
-            <ProtectedRoute>
-                <MainLayout />
-            </ProtectedRoute>
-        </>
-    );
+function App({ children }: { children: React.ReactNode }) {
+    return <>{children}</>;
 }
 
 export default App;
