@@ -24,7 +24,7 @@ const CreateBooking = () => {
     const slotOptions = slotData?.data
         ?.filter(
             (slot) =>
-                slot.service?._id === serviceId &&
+                slot?.service?._id === serviceId &&
                 slot?.isBooked === "available"
         )
         .map((slot) => ({

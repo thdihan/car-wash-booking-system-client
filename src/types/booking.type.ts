@@ -5,8 +5,8 @@ import { TCustomer } from "./user.type";
 export type TBooking = {
     _id: string;
     customer: TCustomer;
-    service: TService;
-    slot: TSlot;
+    serviceId: TService;
+    slotId: TSlot;
     vehicleType: string;
     vehicleBrand: string;
     vehicleModel: string;
