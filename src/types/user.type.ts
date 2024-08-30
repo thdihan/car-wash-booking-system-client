@@ -12,4 +12,5 @@ export type TCustomer = {
     email: string;
     phone: string;
     address: string;
+    role?: string;
 };

@@ -1,3 +1,4 @@
+import AllUsers from "../pages/admin/AllUsers";
 import Services from "../pages/admin/servicesManagement/Services";
 import Slots from "../pages/admin/slotManagement/Slots";
 import UserBooking from "../pages/admin/UserBooking";
@@ -23,6 +24,11 @@ export const AdminPath = [
         name: "Bookings",
         path: "bookings",
         element: <UserBooking />,
+    },
+    {
+        name: "Users",
+        path: "all-users",
+        element: <AllUsers />,
     },
     {
         name: "Profile",

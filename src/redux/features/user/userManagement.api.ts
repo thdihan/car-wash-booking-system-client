@@ -24,8 +24,22 @@ const userManagementApi = baseApi.injectEndpoints({
             },
             invalidatesTags: ["profile"],
         }),
+
+        getAllUsers: builder.query({
+            query: () => {
+                return {
+                    url: "/user/all",
+                    method: "GET",
+                };
+            },
+
+            providesTags: ["profile"],
+        }),
     }),
 });
 
-export const { useGerPersonalDataQuery, useUpdateProfileMutation } =
-    userManagementApi;
+export const {
+    useGerPersonalDataQuery,
+    useUpdateProfileMutation,
+    useGetAllUsersQuery,
+} = userManagementApi;
