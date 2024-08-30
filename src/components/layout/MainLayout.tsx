@@ -17,13 +17,7 @@ const MainLayout = () => {
             <Layout>
                 {user?.role === "admin" ? <AdminHeader /> : <UserHeader />}
                 <Content style={{ margin: "24px 16px 0" }}>
-                    <div
-                        // style={{
-                        //     padding: 24,
-                        //     minHeight: 360,
-                        // }}
-                        className="py-[24px] px-[5px] lg:p-[24px]"
-                    >
+                    <div className="py-[24px] px-[5px] lg:p-[24px]">
                         <Outlet />.
                     </div>
                 </Content>
