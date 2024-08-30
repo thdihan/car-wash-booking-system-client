@@ -11,7 +11,7 @@ const bookingApi = baseApi.injectEndpoints({
                 };
             },
 
-            invalidatesTags: ["slots"],
+            invalidatesTags: ["slots", "booking"],
         }),
 
         getBookings: builder.query({
@@ -21,6 +21,8 @@ const bookingApi = baseApi.injectEndpoints({
                     method: "GET",
                 };
             },
+
+            providesTags: ["booking"],
         }),
 
         getMyBookings: builder.query({
@@ -30,6 +32,7 @@ const bookingApi = baseApi.injectEndpoints({
                     method: "GET",
                 };
             },
+            providesTags: ["booking"],
         }),
     }),
 });

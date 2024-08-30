@@ -10,8 +10,10 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { useCreateBookingMutation } from "../../redux/features/user/booking.api";
 import { PHCheckbox } from "../../components/form/PHCheckbox";
+import { useNavigate } from "react-router-dom";
 
 const CreateBooking = () => {
+    const navigate = useNavigate();
     const [serviceId, setServiceId] = useState<string>("");
     const { data: serviceData, isFetching: serviceFetching } =
         useGetServicesQuery(undefined);
@@ -47,6 +49,7 @@ const CreateBooking = () => {
             const res = await createBooking(newBooking).unwrap();
             console.log("Booking Response : ", res);
             toast.success("Slot Booked Successfully", { id: toastId });
+            navigate("/user/dashboard");
         } catch (error) {
             console.log(error);
             toast.error("Failed to book slot", { id: toastId });

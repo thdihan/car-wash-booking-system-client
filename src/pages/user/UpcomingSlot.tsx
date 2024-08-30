@@ -13,8 +13,8 @@ const UpcomingSlot = () => {
 
     useEffect(() => {
         if (bookingData?.data.length > 0) {
-            const tempBooking = bookingData?.data?.reduce(
-                (acc: TBooking[], item: TBooking) => {
+            const tempBooking = bookingData?.data
+                ?.reduce((acc: TBooking[], item: TBooking) => {
                     const slotId = item.slotId.reduce((acc: TSlot[], slot) => {
                         if (
                             new Date(`${slot.date}T${slot.startTime}`) >
@@ -29,9 +29,16 @@ const UpcomingSlot = () => {
                         acc.push(booking);
                     }
                     return acc;
-                },
-                []
-            );
+                }, [])
+                .sort(
+                    (a: TBooking, b: TBooking) =>
+                        new Date(
+                            `${a.slotId[0].date}T${a.slotId[0].startTime}`
+                        ).getTime() -
+                        new Date(
+                            `${b.slotId[0].date}T${b.slotId[0].startTime}`
+                        ).getTime()
+                );
 
             setUpcomingBooking(tempBooking);
             console.log("Modified Booking: ", tempBooking);
