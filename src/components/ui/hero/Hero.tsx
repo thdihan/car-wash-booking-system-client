@@ -16,8 +16,8 @@ const Hero = () => {
                         looking its best. <br /> Schedule your appointment today
                         and drive clean!
                     </p>
-                    <Button type="primary" size="large">
-                        Get Services
+                    <Button type="primary" size="large" className="font-bold">
+                        Get Services Now!
                     </Button>
                 </div>
 
