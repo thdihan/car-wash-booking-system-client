@@ -1,4 +1,5 @@
 import Hero from "../components/ui/hero/Hero";
+import ReviewSection from "../components/ui/review/ReviewSection";
 import ServiceSection from "../components/ui/services/ServiceSection";
 
 const Home = () => {
@@ -6,6 +7,7 @@ const Home = () => {
         <>
             <Hero />
             <ServiceSection />
+            <ReviewSection />
         </>
     );
 };
