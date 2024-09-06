@@ -45,7 +45,7 @@ const ReviewSection = () => {
         }
     }, [reviewData]);
     return (
-        <div className="px-4 md:px-8 lg:px-16 py-6">
+        <div id="reviews" className="px-4 md:px-8 lg:px-16 py-6">
             {/* Review Header  */}
             <div>
                 <h1 className="text-3xl font-normal text-center">Reviews</h1>

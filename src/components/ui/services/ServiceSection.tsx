@@ -7,7 +7,7 @@ const ServiceSection = () => {
     const { data: serviceData, isFetching } = useGetServicesQuery(undefined);
     console.log("Service Data", serviceData);
     return (
-        <div className="px-4 md:px-8 lg:px-16 py-6">
+        <div id="services" className="px-4 md:px-8 lg:px-16 py-6">
             <div>
                 <h1 className="text-3xl font-normal text-center">
                     Our Services

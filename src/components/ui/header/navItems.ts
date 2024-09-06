@@ -4,27 +4,11 @@ export const navItems = [
         path: "/",
     },
     {
-        name: "All Products",
-        path: "/all-products",
+        name: "Services",
+        path: "/#services",
     },
     {
-        name: "Featured Products",
-        path: "/#featured-product",
-    },
-    {
-        name: "Categories",
-        path: "/#category-section",
-    },
-    {
-        name: "Benefits",
-        path: "/#benefits-section",
-    },
-    {
-        name: "Gallery",
-        path: "/#gallery-section",
-    },
-    {
-        name: "About",
-        path: "/about",
+        name: "Reviews",
+        path: "/#reviews",
     },
 ];
