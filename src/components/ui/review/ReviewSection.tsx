@@ -6,6 +6,7 @@ import { useGetReviewsQuery } from "../../../redux/features/user/review.api";
 import { floor } from "lodash";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../LoadingSpinner";
+import { Button } from "antd";
 
 type TRating = {
     percentage: number;
@@ -105,7 +106,7 @@ const ReviewSection = () => {
                 )}
 
                 {/* Only Top 3 reviews will be shown */}
-                {reviewData?.data?.slice(-3).map((review: any) => (
+                {reviewData?.data?.slice(-2).map((review: any) => (
                     <ReviewCard
                         key={review._id}
                         name={review.reviewerId.name}
@@ -114,11 +115,10 @@ const ReviewSection = () => {
                         rating={review.rating}
                     />
                 ))}
-                {/* <ReviewCard />
 
-                <ReviewCard />
-
-                <ReviewCard /> */}
+                <div className="text-center py-2">
+                    <Button className="shadow-xl">View All Reviews</Button>
+                </div>
             </div>
 
             <Feedback />
