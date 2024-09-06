@@ -3,11 +3,7 @@ import { useGetServicesQuery } from "../../../redux/features/admin/service.api";
 import LoadingSpinner from "../LoadingSpinner";
 import ServiceCard from "./ServiceCard";
 import { Link } from "react-router-dom";
-import {
-    BiRightArrow,
-    BiSolidRightArrow,
-    BiSolidRightArrowAlt,
-} from "react-icons/bi";
+import { BiSolidRightArrow } from "react-icons/bi";
 
 const ServiceSection = () => {
     const { data: serviceData, isFetching } = useGetServicesQuery(undefined);
