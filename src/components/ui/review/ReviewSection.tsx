@@ -7,6 +7,7 @@ import { floor } from "lodash";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../LoadingSpinner";
 import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
 type TRating = {
     percentage: number;
@@ -14,9 +15,10 @@ type TRating = {
 };
 const ReviewSection = () => {
     const { data: reviewData, isFetching } = useGetReviewsQuery(undefined);
-    console.log("Review Data", reviewData);
+    // console.log("Review Data", reviewData);
     const [avgRating, setAvgRating] = useState<number>(0);
     const [ratingCount, setRatingCount] = useState<TRating[]>();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (reviewData) {
@@ -57,12 +59,12 @@ const ReviewSection = () => {
             </div>
 
             {/* Rating Section */}
-            <div className="flex divide-x-2">
+            <div className="flex divide-x-2 flex-col lg:flex-row">
                 <div className="flex-1 p-8">
                     <h1 className="text-5xl font-bold text-center">
                         {avgRating.toFixed(2)}
                     </h1>
-                    <div className="flex justify-between text-xl text-yellow-500 py-2">
+                    <div className="flex lg:justify-between justify-center text-xl text-yellow-500 py-2">
                         {Array.from({ length: avgRating }).map((_, index) => (
                             <StarFilled key={index} />
                         ))}
@@ -73,7 +75,7 @@ const ReviewSection = () => {
                         )}
                     </div>
                     <p className="text-center text-sm text-gray-600">
-                        Based on 100 reviews
+                        Based on {reviewData?.data?.length} reviews
                     </p>
                 </div>
                 <div className="flex-[10] p-8 space-y-4">
@@ -117,7 +119,12 @@ const ReviewSection = () => {
                 ))}
 
                 <div className="text-center py-2">
-                    <Button className="shadow-xl">View All Reviews</Button>
+                    <Button
+                        className="shadow-xl"
+                        onClick={() => navigate("/reviews")}
+                    >
+                        View All Reviews
+                    </Button>
                 </div>
             </div>
 

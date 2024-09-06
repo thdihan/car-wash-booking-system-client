@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useAppDispatch } from "../redux/hooks";
-import { setUser, TUser } from "../redux/features/auth/authSlice";
+import { setUser } from "../redux/features/auth/authSlice";
 import { verifyToken } from "../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -32,11 +32,12 @@ const Login = () => {
             const res = await login(userInfo).unwrap();
             console.log(res);
 
-            const user = verifyToken(res.token) as TUser;
+            const user = verifyToken(res.token);
             console.log("User => ", user);
             dispatch(setUser({ user, token: res.token }));
             toast.success("Login successful", { id: toastId, duration: 2000 });
-            navigate(`/${user.role}`);
+            // navigate(`/${user.role}`);
+            navigate(`/`);
             // if (user.role === "admin") navigate("/admin");
             // // else navigate(`/${user.role}`);
         } catch (error) {

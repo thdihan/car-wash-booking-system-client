@@ -13,8 +13,8 @@ const ReviewCard = ({
 }) => {
     return (
         <div className="shadow-lg p-8 border-2 rounded-lg">
-            <div className="flex justify-between">
-                <div className="flex items-center space-x-2">
+            <div className="flex justify-between flex-col lg:flex-row">
+                <div className="flex lg:items-center lg:space-x-2 flex-col lg:flex-row">
                     <h2 className="font-semibold align-middle">{name}</h2>
                     <p className="text-xs font-light text-gray-600 align-middle">
                         {new Date(date).getMonth() +

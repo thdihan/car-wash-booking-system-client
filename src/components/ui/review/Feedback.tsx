@@ -5,9 +5,11 @@ import { selectCurrentUser } from "../../../redux/features/auth/authSlice";
 import { useState } from "react";
 import { useCreateReviewMutation } from "../../../redux/features/user/review.api";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const Feedback = () => {
     const user = useAppSelector(selectCurrentUser);
+    const navigate = useNavigate();
     const [createReview] = useCreateReviewMutation();
     const [review, setReview] = useState<string>("");
     const [rating, setRating] = useState<number>(0);
@@ -81,7 +83,9 @@ const Feedback = () => {
                 </div>
                 {!user && (
                     <div className="absolute z-10 w-full top-[40%]   text-center">
-                        <Button>Login to write a review</Button>
+                        <Button onClick={() => navigate("/login")}>
+                            Login to write a review
+                        </Button>
                     </div>
                 )}
             </div>
