@@ -1,5 +1,6 @@
 import Home from "../pages/Home";
 import Review from "../pages/Review";
+import ServiceDetails from "../pages/ServiceDetails";
 import Services from "../pages/Services";
 
 export const PublicPath = [
@@ -17,5 +18,10 @@ export const PublicPath = [
         name: "Service",
         path: "/services",
         element: <Services />,
+    },
+    {
+        name: "Service",
+        path: "/services/:id",
+        element: <ServiceDetails />,
     },
 ];
