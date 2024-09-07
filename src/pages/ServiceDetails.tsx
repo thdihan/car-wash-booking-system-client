@@ -6,9 +6,14 @@ import { formatDate } from "../utils/formatDateAndTime";
 import { useGetSlotsQuery } from "../redux/features/admin/slot.api";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
+import { useAppSelector } from "../redux/hooks";
+import { selectCurrentUser } from "../redux/features/auth/authSlice";
+import { toast } from "sonner";
+import _ from "lodash";
 
 const ServiceDetails = () => {
     const navigate = useNavigate();
+    const user = useAppSelector(selectCurrentUser);
 
     const { id } = useParams<{ id: string }>();
     const { data: serviceData, isFetching: serviceFetching } =
@@ -131,15 +136,22 @@ const ServiceDetails = () => {
                                 {filteredSlots.length > 0 && (
                                     <div className="text-end">
                                         <Button
-                                            onClick={
-                                                () =>
-                                                    navigate(
-                                                        `/user/create-booking/?serviceId=${id}&slotId=${slotOptions}`
-                                                    )
-                                                // console.log(
-                                                //     "Slot Options : ",
-                                                //     slotOptions
-                                                // )
+                                            onClick={() =>
+                                                user?.role === "user"
+                                                    ? navigate(
+                                                          `/user/create-booking/?serviceId=${id}&slotId=${slotOptions}`
+                                                      )
+                                                    : toast.error(
+                                                          `${
+                                                              user
+                                                                  ? "You are an " +
+                                                                    _.capitalize(
+                                                                        user?.role
+                                                                    ) +
+                                                                    ":"
+                                                                  : ""
+                                                          }  You need to login as a user to book a slot`
+                                                      )
                                             }
                                             type="primary"
                                         >
