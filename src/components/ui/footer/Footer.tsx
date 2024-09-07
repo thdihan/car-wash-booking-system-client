@@ -18,7 +18,7 @@ const Footer = () => {
             <div className="container mx-auto flex w-full flex-col lg:items-center space-y-10 p-10 lg:text-left lg:max-w-[1200px] lg:flex-row lg:justify-between lg:space-x-16 lg:space-y-0">
                 <div className="flex-1 space-y-5 text-white text-center">
                     <h2 className="text-2xl font-semibold lg:text-left">
-                        Fitness Shop
+                        CWBS Workshop
                     </h2>
                     <address className="text-center lg:text-left">
                         Apt. 955 118 Abbott Shore, <br /> New Berniece, HI{" "}

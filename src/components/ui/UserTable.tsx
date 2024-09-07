@@ -73,31 +73,26 @@ const UserTable = ({
             title: "Name",
             key: "name",
             dataIndex: "name",
-            responsive: ["md", "sm", "lg"],
         },
         {
             title: "Role",
             key: "role",
             render: (item) => _.capitalize(item.role),
-            responsive: ["md", "sm", "lg"],
         },
         {
             title: "Email",
             key: "email",
             dataIndex: "email",
-            responsive: ["md", "sm", "lg"],
         },
         {
             title: "Phone",
             key: "phone",
             dataIndex: "phone",
-            responsive: ["md", "sm", "lg"],
         },
         {
             title: "Address",
             key: "address",
             dataIndex: "address",
-            responsive: ["md", "sm", "lg"],
         },
         {
             title: "Change Role",
@@ -110,7 +105,6 @@ const UserTable = ({
                     </Button>
                 </div>
             ),
-            responsive: ["md", "sm", "lg"],
         },
     ];
     return (

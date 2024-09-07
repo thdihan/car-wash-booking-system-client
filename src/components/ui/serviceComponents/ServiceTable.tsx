@@ -67,6 +67,7 @@ const ServiceTable = ({ serviceData, isFetching }: TProps) => {
                 loading={isFetching}
                 columns={columns}
                 dataSource={tableData}
+                scroll={{ x: 1200 }}
             />
         </div>
     );
