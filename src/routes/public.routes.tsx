@@ -1,4 +1,5 @@
 import Booking from "../pages/Booking";
+import Error404 from "../pages/Error404";
 import Home from "../pages/Home";
 import PaymentSuccess from "../pages/PaymentSuccess";
 import Review from "../pages/Review";
@@ -35,5 +36,10 @@ export const PublicPath = [
         name: "Success",
         path: "/success",
         element: <PaymentSuccess />,
+    },
+    {
+        name: "Error",
+        path: "/*",
+        element: <Error404 />,
     },
 ];
