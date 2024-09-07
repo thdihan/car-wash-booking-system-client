@@ -1,3 +1,4 @@
+import Booking from "../pages/Booking";
 import Home from "../pages/Home";
 import Review from "../pages/Review";
 import ServiceDetails from "../pages/ServiceDetails";
@@ -23,5 +24,10 @@ export const PublicPath = [
         name: "Service",
         path: "/services/:id",
         element: <ServiceDetails />,
+    },
+    {
+        name: "Booking",
+        path: "/booking",
+        element: <Booking />,
     },
 ];

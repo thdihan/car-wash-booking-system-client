@@ -10,6 +10,7 @@ import { useAppSelector } from "../redux/hooks";
 import { selectCurrentUser } from "../redux/features/auth/authSlice";
 import { toast } from "sonner";
 import _ from "lodash";
+import { TSlot } from "../types/slot.type";
 
 const ServiceDetails = () => {
     const navigate = useNavigate();
@@ -39,6 +40,12 @@ const ServiceDetails = () => {
 
         setFilteredSlots(tempSlots);
     }, [slotsData, selectedDate]);
+
+    const isDisabled = (slots: TSlot[]) =>
+        slots?.some(
+            (slot) =>
+                slot.isBooked === "booked" || slot.isBooked === "cancelled"
+        );
 
     return (
         <div className="px-4 md:px-8 lg:px-16 py-8">
@@ -136,10 +143,11 @@ const ServiceDetails = () => {
                                 {filteredSlots.length > 0 && (
                                     <div className="text-end">
                                         <Button
+                                            disabled={isDisabled(filteredSlots)}
                                             onClick={() =>
                                                 user?.role === "user"
                                                     ? navigate(
-                                                          `/user/create-booking/?serviceId=${id}&slotId=${slotOptions}`
+                                                          `/booking/?serviceId=${id}&slotId=${slotOptions}`
                                                       )
                                                     : toast.error(
                                                           `${
