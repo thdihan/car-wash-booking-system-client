@@ -40,12 +40,14 @@ export const PHSelectOnChange = ({
     options,
     disabled,
     onChange,
+    value,
 }: {
     name: string;
     label?: string;
     disabled?: boolean;
     onChange?: (value: string) => void;
     options: { value: string; label: string }[] | undefined;
+    value: string;
 }) => {
     return (
         <Controller
@@ -60,6 +62,7 @@ export const PHSelectOnChange = ({
                         disabled={disabled}
                         placeholder={`Select ${label}`}
                         onChange={onChange}
+                        value={value}
                     />
                     {error && (
                         <small style={{ color: "red" }}>{error.message}</small>

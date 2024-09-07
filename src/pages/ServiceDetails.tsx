@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetSingleServiceQuery } from "../redux/features/admin/service.api";
 import { Button, Checkbox, DatePicker } from "antd";
 import dayjs from "dayjs";
@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 const ServiceDetails = () => {
+    const navigate = useNavigate();
+
     const { id } = useParams<{ id: string }>();
     const { data: serviceData, isFetching: serviceFetching } =
         useGetSingleServiceQuery(id);
@@ -17,6 +19,8 @@ const ServiceDetails = () => {
     const [selectedDate, setSelectedDate] = useState<string>(
         formatDate(new Date(Date.now()).toDateString())
     );
+
+    const [slotOptions, setSlotOptions] = useState<any[]>([]);
 
     useEffect(() => {
         let tempSlots = [...(slotsData?.data || [])];
@@ -66,7 +70,7 @@ const ServiceDetails = () => {
                         </div>
                     </div>
 
-                    <div className="w-1/2 mx-auto py-8">
+                    <div className="w-full lg:w-1/2 mx-auto py-8">
                         <div className="flex justify-between">
                             <h2 className="text-xl">Available Slots</h2>
                             <DatePicker
@@ -97,6 +101,26 @@ const ServiceDetails = () => {
                                                 slot.isBooked == "cancelled"
                                             }
                                             className="border-2 p-2 rounded-md font-semibold"
+                                            key={slot._id}
+                                            onChange={(e) => {
+                                                if (e.target.checked) {
+                                                    console.log(
+                                                        e.target.checked
+                                                    );
+                                                    setSlotOptions([
+                                                        ...slotOptions,
+                                                        slot._id,
+                                                    ]);
+                                                } else {
+                                                    setSlotOptions(
+                                                        slotOptions.filter(
+                                                            (slotId) =>
+                                                                slotId !==
+                                                                slot._id
+                                                        )
+                                                    );
+                                                }
+                                            }}
                                         >
                                             {slot.date} : ({slot.startTime} -{" "}
                                             {slot.endTime})
@@ -106,7 +130,19 @@ const ServiceDetails = () => {
 
                                 {filteredSlots.length > 0 && (
                                     <div className="text-end">
-                                        <Button type="primary">
+                                        <Button
+                                            onClick={
+                                                () =>
+                                                    navigate(
+                                                        `/user/create-booking/?serviceId=${id}&slotId=${slotOptions}`
+                                                    )
+                                                // console.log(
+                                                //     "Slot Options : ",
+                                                //     slotOptions
+                                                // )
+                                            }
+                                            type="primary"
+                                        >
                                             Book this service
                                         </Button>
                                     </div>

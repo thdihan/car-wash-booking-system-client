@@ -10,11 +10,15 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { useCreateBookingMutation } from "../../redux/features/user/booking.api";
 import { PHCheckbox } from "../../components/form/PHCheckbox";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const CreateBooking = () => {
+    const [queryParameters] = useSearchParams();
+    console.log("Query Parameters : ", queryParameters.get("serviceId"));
     const navigate = useNavigate();
-    const [serviceId, setServiceId] = useState<string>("");
+    const [serviceId, setServiceId] = useState<string>(
+        queryParameters.get("serviceId") || ""
+    );
     const { data: serviceData, isFetching: serviceFetching } =
         useGetServicesQuery(undefined);
 
@@ -40,6 +44,10 @@ const CreateBooking = () => {
         value: service._id,
     }));
 
+    const defaultValue = {
+        slotId: queryParameters.get("slotId"),
+    };
+
     const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
         // console.log("SLOT DATA", data);
         const toastId = toast.loading("Booking Slot...", { duration: 2000 });
@@ -58,11 +66,12 @@ const CreateBooking = () => {
     return (
         <div className="p-8 bg-white">
             <h3 className="text-xl mb-8">Slot Booking</h3>
-            <PHForm onSubmit={handleSubmit}>
+            <PHForm onSubmit={handleSubmit} defaultValues={defaultValue}>
                 <PHSelectOnChange
                     options={serviceOptions}
                     name="service"
                     label="Service"
+                    value={serviceId}
                     onChange={(value) => {
                         console.log("Target Change : ", value);
                         setServiceId(value);
