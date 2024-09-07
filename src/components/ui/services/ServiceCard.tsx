@@ -1,10 +1,19 @@
-import { Col } from "antd";
+import { Button, Col } from "antd";
 import { TService } from "../../../types";
 import { useNavigate } from "react-router-dom";
 import _ from "lodash";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import {
+    addService,
+    selectCompareServices,
+} from "../../../redux/features/compareSlice";
+import { toast } from "sonner";
 
 const ServiceCard = ({ service }: { service: TService }) => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const services = useAppSelector(selectCompareServices);
+
     return (
         <Col className="gutter-row" span={24} lg={{ span: "6" }}>
             <div className="rounded-lg shadow-lg border-2  p-8 space-y-4">
@@ -29,6 +38,25 @@ const ServiceCard = ({ service }: { service: TService }) => {
                         <span>Price: {service.price} tk</span>
                         <span>Duration: {service.duration} min</span>
                     </p>
+                </div>
+                <div className="space-x-2 flex">
+                    <Button
+                        onClick={() => {
+                            if (services.length < 2) {
+                                dispatch(addService(service));
+                                toast.success("Service added to compare", {
+                                    duration: 2000,
+                                });
+                            } else {
+                                toast.error("You can only compare 2 services", {
+                                    duration: 2000,
+                                });
+                            }
+                        }}
+                    >
+                        Add to Compare
+                    </Button>
+                    <Button type="primary">View Details</Button>
                 </div>
             </div>
         </Col>

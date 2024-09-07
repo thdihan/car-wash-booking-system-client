@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Badge, Button } from "antd";
 import Logo from "./Logo";
 import Navigation from "./Navigation";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
@@ -7,9 +7,12 @@ import {
     selectCurrentUser,
 } from "../../../redux/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { LuGitCompare } from "react-icons/lu";
+import { selectCompareServices } from "../../../redux/features/compareSlice";
 
 const Header = () => {
     const user = useAppSelector(selectCurrentUser);
+    const services = useAppSelector(selectCompareServices);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -25,7 +28,10 @@ const Header = () => {
                 dispatch(logout());
                 break;
             case "dashboard":
-                navigate(`/${user?.role}`);
+                navigate(`/${user?.role}/dashboard`);
+                break;
+            case "compare":
+                navigate("/compare");
                 break;
         }
     };
@@ -34,7 +40,14 @@ const Header = () => {
             <div className="flex flex-col lg:flex-row lg:justify-between items-center py-6 border-b-2 border-grey-300 px-8 lg:px-16 space-y-0">
                 <Logo />
                 {user && (
-                    <div className="space-x-2">
+                    <div className="space-x-4 flex py-4 lg:py-4">
+                        <Badge count={services.length}>
+                            <LuGitCompare
+                                className="text-3xl cursor-pointer"
+                                onClick={() => handleNavigation("compare")}
+                            />
+                        </Badge>
+
                         <Button
                             type="primary"
                             className="m-0"

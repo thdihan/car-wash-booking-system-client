@@ -7,7 +7,7 @@ import UpdateProfile from "../pages/UpdateProfile";
 export const AdminPath = [
     {
         name: "Dashboard",
-        path: "/admin",
+        path: "dashboard",
         element: <Profile />,
     },
     {
