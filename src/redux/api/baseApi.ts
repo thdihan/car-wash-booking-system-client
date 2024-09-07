@@ -10,6 +10,7 @@ import { RootState } from "../store";
 import { setUser } from "../features/auth/authSlice";
 import { toast } from "sonner";
 import { TResponse } from "../../types/global";
+import { TUser } from "../../types/user.type";
 
 const baseQuery = fetchBaseQuery({
     baseUrl: "http://localhost:5001/api",
@@ -31,7 +32,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
     BaseQueryApi,
     DefinitionType
 > = async (args, api, extraOptions): Promise<any> => {
-    let result = (await baseQuery(args, api, extraOptions)) as TResponse;
+    let result = (await baseQuery(args, api, extraOptions)) as TResponse<TUser>;
     // console.log("Result ", result);
 
     if (result?.error?.status === 404) {
@@ -59,7 +60,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
                 token: data.data.accessToken,
             })
         );
-        result = (await baseQuery(args, api, extraOptions)) as TResponse;
+        result = (await baseQuery(args, api, extraOptions)) as TResponse<TUser>;
     }
 
     return result;
