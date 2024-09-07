@@ -13,7 +13,7 @@ import { TResponse } from "../../types/global";
 import { TUser } from "../../types/user.type";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "http://localhost:5001/api",
+    baseUrl: "https://car-wash-booking-system-backend-five.vercel.app/api",
     credentials: "include",
 
     prepareHeaders: (headers, { getState }) => {
@@ -41,7 +41,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 
     if (result?.error?.status === 401) {
         const res = await fetch(
-            "http://localhost:5001/api/auth/refresh-token",
+            "https://car-wash-booking-system-backend-five.vercel.app/api/auth/refresh-token",
             {
                 method: "POST",
                 credentials: "include",
