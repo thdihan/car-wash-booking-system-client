@@ -39,3 +39,9 @@ react-calendar__navigation {
     background-color: #4096ff;
     color: #fff;
 }
+
+.scroll-to-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
