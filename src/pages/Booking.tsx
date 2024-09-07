@@ -51,6 +51,7 @@ const Booking = () => {
             const res = await createBooking(newBooking).unwrap();
             console.log("Booking Response : ", res);
             toast.success("Slot Booked Successfully", { id: toastId });
+            window.location.href = res.data.paymentInfo.payment_url;
             // navigate("/user/dashboard");
         } catch (error) {
             console.log(error);

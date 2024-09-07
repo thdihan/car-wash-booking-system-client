@@ -42,10 +42,7 @@ const ServiceDetails = () => {
     }, [slotsData, selectedDate]);
 
     const isDisabled = (slots: TSlot[]) =>
-        slots?.some(
-            (slot) =>
-                slot.isBooked === "booked" || slot.isBooked === "cancelled"
-        );
+        slots?.some((slot) => slot.isBooked === "available");
 
     return (
         <div className="px-4 md:px-8 lg:px-16 py-8">
@@ -143,7 +140,9 @@ const ServiceDetails = () => {
                                 {filteredSlots.length > 0 && (
                                     <div className="text-end">
                                         <Button
-                                            disabled={isDisabled(filteredSlots)}
+                                            disabled={
+                                                !isDisabled(filteredSlots)
+                                            }
                                             onClick={() =>
                                                 user?.role === "user"
                                                     ? navigate(

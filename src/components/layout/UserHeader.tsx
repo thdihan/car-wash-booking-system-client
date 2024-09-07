@@ -52,8 +52,12 @@ const UserHeader = () => {
         dispatch(logout());
     };
     return (
-        <Header className="flex justify-between items-center p-2">
-            {!isFetching && (
+        <Header
+            className={`flex ${
+                upcomingBooking.length > 0 ? "justify-between" : "justify-end"
+            }  items-center p-2`}
+        >
+            {!isFetching && upcomingBooking.length > 0 && (
                 <div className="flex item-center space-x-4 justify-center  px-4 py-1 rounded-xl w-full">
                     <h3 className="text-white text-lg  text-center">
                         Next Slot
