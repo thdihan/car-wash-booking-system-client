@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { TSlot } from "../../types/slot.type";
 
 const UpcomingSlot = () => {
-    const { data: bookingData, isFetching } = useGetMyBookingsQuery(undefined);
+    const { data: bookingData } = useGetMyBookingsQuery(undefined);
 
     const [upcomingBooking, setUpcomingBooking] = useState<TBooking[]>();
 

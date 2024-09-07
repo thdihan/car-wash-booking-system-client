@@ -1,5 +1,4 @@
 import { Button } from "antd";
-import { BiError, BiErrorAlt, BiErrorCircle } from "react-icons/bi";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 

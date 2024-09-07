@@ -19,11 +19,9 @@ const CreateBooking = () => {
     const [serviceId, setServiceId] = useState<string>(
         queryParameters.get("serviceId") || ""
     );
-    const { data: serviceData, isFetching: serviceFetching } =
-        useGetServicesQuery(undefined);
+    const { data: serviceData } = useGetServicesQuery(undefined);
 
-    const { data: slotData, isFetching: slotFetching } =
-        useGetSlotsQuery(undefined);
+    const { data: slotData } = useGetSlotsQuery(undefined);
 
     const [createBooking, { isLoading: bookingLoading }] =
         useCreateBookingMutation();

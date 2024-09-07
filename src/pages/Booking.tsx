@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useGetSingleServiceQuery } from "../redux/features/admin/service.api";
 import { useGetSlotsQuery } from "../redux/features/admin/slot.api";
 import { useEffect, useState } from "react";
@@ -13,14 +13,12 @@ import PHSelect from "../components/form/PHSelect";
 
 const Booking = () => {
     const [queryParameters] = useSearchParams();
-    const [createBooking, { isLoading: bookingLoading }] =
-        useCreateBookingMutation();
-    const navigate = useNavigate();
+    const [createBooking] = useCreateBookingMutation();
 
-    const { data: serviceData, isFetching: serviceFetching } =
-        useGetSingleServiceQuery(queryParameters.get("serviceId") || "");
-    const { data: slotsData, isFetching: slotFetching } =
-        useGetSlotsQuery(undefined);
+    const { data: serviceData } = useGetSingleServiceQuery(
+        queryParameters.get("serviceId") || ""
+    );
+    const { data: slotsData } = useGetSlotsQuery(undefined);
 
     const [slots, setSlots] = useState<any[]>();
     useEffect(() => {

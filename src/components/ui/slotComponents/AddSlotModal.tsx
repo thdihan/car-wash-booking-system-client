@@ -18,7 +18,7 @@ import { formatDate, formatTime } from "../../../utils/formatDateAndTime";
 const AddSlotModal = ({ updateMode = false }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const [defaultValues, setDefaultValues] = useState<Partial<TService>>({});
+    const defaultValues: Partial<TService> = {};
 
     const { data: serviceData } = useGetServicesQuery(undefined);
 

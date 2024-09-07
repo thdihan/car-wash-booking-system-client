@@ -10,12 +10,7 @@ import { TService } from "../../../types";
 import { useUpdateServiceMutation } from "../../../redux/features/admin/service.api";
 import PHForm from "../../form/PHForm";
 import { ServiceSchema } from "../../../schemas/serviceSchema";
-import {
-    PHInput,
-    PHInputNumber,
-    PHInputNumberUpdate,
-    PHInputUpdate,
-} from "../../form/PHInput";
+import { PHInputNumberUpdate, PHInputUpdate } from "../../form/PHInput";
 
 type TProps = {
     item: Partial<TService>;

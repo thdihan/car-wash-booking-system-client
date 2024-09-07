@@ -61,7 +61,7 @@ const SlotTable = ({ slotData, isFetching }: TProps) => {
                 data: updatedSlot,
             }).unwrap();
 
-            // console.log(res);
+            console.log(res);
         } catch (error) {
             console.log(error);
         }

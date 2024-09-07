@@ -3,12 +3,10 @@ import { Controller } from "react-hook-form";
 
 export const PHCheckbox = ({
     name,
-    placeholder,
     label = "Text",
     options,
 }: {
     name: string;
-    placeholder?: string;
     label?: string;
     type?: string;
     options: { value: string; label: string }[] | undefined;
