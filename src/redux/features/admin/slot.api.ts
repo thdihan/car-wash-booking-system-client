@@ -12,6 +12,7 @@ const slotApi = baseApi.injectEndpoints({
                     body: data,
                 };
             },
+            invalidatesTags: ["slots"],
         }),
 
         getSlots: builder.query({

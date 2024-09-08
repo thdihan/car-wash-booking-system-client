@@ -61,7 +61,13 @@ const Header = () => {
                     </div>
                 )}
                 {!user && (
-                    <div className="space-x-2">
+                    <div className="space-x-4 flex py-4 lg:py-4">
+                        <Badge count={services.length}>
+                            <LuGitCompare
+                                className="text-3xl cursor-pointer"
+                                onClick={() => handleNavigation("compare")}
+                            />
+                        </Badge>
                         <Button
                             type="primary"
                             className="m-0"

@@ -11,16 +11,25 @@ const ReviewCard = ({
     date: string;
     rating: number;
 }) => {
+    const getMonthOrDaysDifference = (date: string) => {
+        const currentDate = new Date(Date.now());
+        const reviewDate = new Date(date);
+        const monthDifference = currentDate.getMonth() - reviewDate.getMonth();
+
+        if (monthDifference !== 0) return `${monthDifference} Months ago.`;
+
+        const dayDifference = currentDate.getDate() - reviewDate.getDate();
+        if (dayDifference !== 0) return `${dayDifference} Days ago.`;
+
+        return "Today";
+    };
     return (
         <div className="shadow-lg p-8 border-2 rounded-lg">
             <div className="flex justify-between flex-col lg:flex-row">
                 <div className="flex lg:items-center lg:space-x-2 flex-col lg:flex-row">
                     <h2 className="font-semibold align-middle">{name}</h2>
                     <p className="text-xs font-light text-gray-600 align-middle">
-                        {new Date(date).getMonth() +
-                            1 -
-                            new Date(Date.now()).getMonth()}{" "}
-                        Months ago
+                        {getMonthOrDaysDifference(date)}
                     </p>
                 </div>
                 <div className="flex space-x-2">

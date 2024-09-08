@@ -1,6 +1,7 @@
 import Booking from "../pages/Booking";
 import Compare from "../pages/Compare";
 import Error404 from "../pages/Error404";
+import Fail from "../pages/Fail";
 import Home from "../pages/Home";
 import PaymentSuccess from "../pages/PaymentSuccess";
 import Review from "../pages/Review";
@@ -37,6 +38,11 @@ export const PublicPath = [
         name: "Success",
         path: "/success",
         element: <PaymentSuccess />,
+    },
+    {
+        name: "Fail",
+        path: "/fail",
+        element: <Fail />,
     },
     {
         name: "Compare",
